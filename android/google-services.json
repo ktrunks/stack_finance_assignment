@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "369079717114",
+    "project_id": "stack-finance-assignment",
+    "storage_bucket": "stack-finance-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369079717114:android:fd714afdd05c2101504d43",
+        "android_client_info": {
+          "package_name": "com.karthik.stack_finance_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369079717114-7amd7qmprrdh8k8ajslo4qcofpbdob03.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karthik.stack_finance_assignment",
+            "certificate_hash": "349284d2cacc7a79cde6fd21359f078fc4f14065"
+          }
+        },
+        {
+          "client_id": "369079717114-v9eg1qhfr9q3flqeu64bso0ech8r34st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt7rdT84JrdiYuTX49lTcx3CCi_itoOVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369079717114-v9eg1qhfr9q3flqeu64bso0ech8r34st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
