@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,12 +50,18 @@ class NotesProvider extends BaseState {
 
   final ImagePicker _picker = ImagePicker();
 
-  void addNewNote(DocumentReference docReference) {
-    docReference.set({
+  String imagePath;
+
+  void addNewNote(DocumentReference docReference, {imageUrl}) {
+    Map<String, dynamic> data = {
       'id': docReference.id,
       'title': noteTitleController.text,
       'desc': noteDescriptionController.text
-    }).then((result) {
+    };
+    if (imageUrl != null) {
+      data['imageUrl'] = imageUrl;
+    }
+    docReference.set(data).then((result) {
       debugPrint('result --- ');
       updateProgressIndicatorStatus(false);
       Fluttertoast.showToast(
@@ -71,11 +80,9 @@ class NotesProvider extends BaseState {
   }
 
   void updateNote(DocumentReference docReference) {
-    docReference.set({
-      'id': notes.id,
-      'title': noteTitleController.text,
-      'desc': noteDescriptionController.text
-    }).then((result) {
+    notes.title = noteTitleController.text;
+    notes.desc = noteDescriptionController.text;
+    docReference.set(notes.toJson()).then((result) {
       updateProgressIndicatorStatus(false);
       Fluttertoast.showToast(
           msg: "Note updated successfully",
@@ -98,11 +105,15 @@ class NotesProvider extends BaseState {
     if (formKey.currentState.validate()) {
       updateProgressIndicatorStatus(true);
       if (notesType == NotesType.NewNote) {
-        addNewNote(FirebaseFirestore.instance
-            .collection("notes")
-            .doc(FirebaseAuth.instance.currentUser.uid)
-            .collection("notes")
-            .doc());
+        if (imagePath.isNotEmpty) {
+          imageUpload();
+        } else {
+          addNewNote(FirebaseFirestore.instance
+              .collection("notes")
+              .doc(FirebaseAuth.instance.currentUser.uid)
+              .collection("notes")
+              .doc());
+        }
       } else {
         updateNote(FirebaseFirestore.instance
             .collection("notes")
@@ -111,7 +122,38 @@ class NotesProvider extends BaseState {
             .doc(notes.id));
       }
     }
+  }
 
-    void onClickOfAddImage() {}
+  void imageUpload() {
+    debugPrint('image upload');
+    FirebaseStorage.instance
+        .ref()
+        .child('${DateTime.now().millisecondsSinceEpoch}')
+        .putFile(File(imagePath))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) {
+        ;
+        addNewNote(
+            FirebaseFirestore.instance
+                .collection("notes")
+                .doc(FirebaseAuth.instance.currentUser.uid)
+                .collection("notes")
+                .doc(),
+            imageUrl: value);
+      });
+    });
+  }
+
+  void onClickOfAddImage() {
+    _picker.getImage(source: ImageSource.gallery).then((value) {
+      debugPrint('file path ${value.path}');
+      imagePath = value.path;
+      notifyListeners();
+    });
+  }
+
+  void onCancelOfImage() {
+    imagePath = '';
+    notifyListeners();
   }
 }

@@ -24,7 +24,7 @@ class Notes {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     data['id'] = this.id;
-    data['name'] = this.title;
+    data['title'] = this.title;
     data['desc'] = this.desc;
     data['imageUrl'] = this.imageUrl;
 

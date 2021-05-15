@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stack_finance_assignment/provider/notes_provider.dart';
@@ -125,32 +127,21 @@ class NoteScreen extends StatelessWidget {
                                   //border: InputBorder.none,
                                 ),
                                 validator: (data) {
+                                  if (data.isEmpty) {
+                                    return 'Please enter enter the description';
+                                  }
                                   return null;
                                 },
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              /*Container(
-                                height: 60.0,
-                                width: 60.0,
-                                child: FittedBox(
-                                  child: FloatingActionButton(
-                                    child: Column(
-                                      children: [
-                                        Icon(Icons.add),
-                                        Text('Image')
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      notesProvider.onClickOfAddImage();
-                                    },
-                                  ),
-                                ),
-                              ),
+                              notesProvider.notesType == NotesType.NewNote
+                                  ? getImageWidget(notesProvider)
+                                  : getNoteViewImageWidget(notesProvider),
                               const SizedBox(
                                 height: 10,
-                              ),*/
+                              ),
                               notesProvider.notesType != NotesType.ViewNote
                                   ? Row(
                                       children: <Widget>[
@@ -186,5 +177,62 @@ class NoteScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget getImageWidget(NotesProvider notesProvider) {
+    return Selector<NotesProvider, String>(
+        builder: (context, data, child) {
+          return data != null && data != ''
+              ? Stack(
+                  children: [
+                    Container(
+                      height: 60.0,
+                      width: 60.0,
+                      child: FittedBox(
+                        child: Image.file(File(data)),
+                      ),
+                    ),
+                    Positioned(
+                        right: 2,
+                        top: -5,
+                        child: InkWell(
+                          onTap: () => notesProvider.onCancelOfImage(),
+                          child: Icon(
+                            Icons.close,
+                            size: 20,
+                            color: primaryColor,
+                          ),
+                        ))
+                  ],
+                )
+              : Container(
+                  height: 60.0,
+                  width: 60.0,
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      child: Column(
+                        children: [Icon(Icons.add), Text('Image')],
+                      ),
+                      onPressed: () {
+                        notesProvider.onClickOfAddImage();
+                      },
+                    ),
+                  ),
+                );
+        },
+        selector: (buildContext, provider) => provider.imagePath);
+  }
+
+  Widget getNoteViewImageWidget(NotesProvider notesProvider) {
+    debugPrint('image path ${notesProvider.notes.imageUrl}');
+    return notesProvider.notes.imageUrl != null
+        ? Container(
+            height: 60.0,
+            width: 60.0,
+            child: FittedBox(
+              child: Image.network(notesProvider.notes.imageUrl),
+            ),
+          )
+        : Container();
   }
 }
