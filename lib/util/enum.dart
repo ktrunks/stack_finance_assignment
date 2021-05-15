@@ -1,0 +1,6 @@
+
+
+enum AuthType  {
+  SignIn,
+  SignUp
+}
