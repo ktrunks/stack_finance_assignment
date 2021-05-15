@@ -27,7 +27,7 @@ class AuthScreen extends StatelessWidget {
               body: Column(
                 children: [
                   Container(
-                    color: secondaryColor,
+                    color: primaryColor,
                     child: TabBar(
                       tabs: [
                         Tab(
@@ -122,7 +122,7 @@ class AuthScreen extends StatelessWidget {
                                   authProvider.obscureText
                                       ? Icons.visibility
                                       : Icons.visibility_off,
-                                  color: secondaryColor,
+                                  color: primaryColor,
                                 )),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey)),
@@ -155,7 +155,7 @@ class AuthScreen extends StatelessWidget {
                       ButtonWidget(
                         buttonText:
                             type == AuthType.SignIn ? 'Sign In' : 'Sign Up',
-                        fillColor: secondaryColor,
+                        fillColor: primaryColor,
                         textColor: Colors.white,
                         callBack: (){
                           authProvider.onClickOfSignInOrSingUp(type);
@@ -179,7 +179,7 @@ class AuthScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(2),
                                 ),
-                                side: BorderSide(color: secondaryColor)),
+                                side: BorderSide(color: primaryColor)),
                             color: white,
                             onPressed: () {
                               authProvider.googleSignIn();
@@ -200,7 +200,7 @@ class AuthScreen extends StatelessWidget {
                                             ? 'Google Sign In'
                                             : 'Google Sign Up',
                                         style:
-                                            textStyle12SecondaryColor,
+                                            textStyle16PrimaryColor,
                                       ),
                                     ),
                                   ),
@@ -227,10 +227,10 @@ class AuthScreen extends StatelessWidget {
                                 TextSpan(
                                     text:
                                         'By Singing up, you are agreeing to our  ',
-                                    style: textStyle12BrownishGrey),
+                                    style: textStyle14BrownishGrey),
                                 TextSpan(
                                   text: 'Terms and conditions',
-                                  style: textStyle14SecondarySemiBold,
+                                  style: textStyle14PrimarySemiBold,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       authProvider.launchWebView(

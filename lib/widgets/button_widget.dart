@@ -23,16 +23,13 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: borderRadius != null
-                  ? BorderRadius.circular(borderRadius)
-                  : BorderRadius.circular(0)),
+        height: 50,
+        child: TextButton(
           onPressed:
               buttonStatus != null && buttonStatus ? () => callBack() : null,
-          color: secondaryColor,
-          disabledColor: cardBorder,
-          disabledTextColor: Colors.red,
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(primaryColor)),
           child: Container(
               height: 45,
               child: Center(

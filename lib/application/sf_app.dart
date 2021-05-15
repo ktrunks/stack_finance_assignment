@@ -30,12 +30,11 @@ class _SFAppState extends State<SFApp> with WidgetsBindingObserver {
         title: 'SF Assignment',
         onGenerateRoute: SFRoutes.router.generator,
         theme: ThemeData(
-          primaryColor: secondaryColor,
-          backgroundColor: secondaryColor,
-          buttonColor: secondaryColor,
-          accentColor: secondaryColor,
+          primaryColor: primaryColor,
+          backgroundColor: primaryColor,
+          buttonColor: primaryColor,
+          accentColor: primaryColor,
           primarySwatch: secondaryPrimarySwatchColor,
-          unselectedWidgetColor: primaryColor,
         ),
       ),
     );

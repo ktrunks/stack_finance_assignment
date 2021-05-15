@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -21,9 +19,6 @@ class WebViewScreen extends StatefulWidget {
 class WebViewScreenState extends State<WebViewScreen> {
   bool _isLoadingPage;
 
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
   final Set<Factory> gestureRecognizers = [
     Factory(() => VerticalDragGestureRecognizer()),
   ].toSet();
@@ -37,9 +32,9 @@ class WebViewScreenState extends State<WebViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: secondaryColor,
+        backgroundColor: primaryColor,
         appBar: AppBar(
-          backgroundColor: secondaryColor,
+          backgroundColor: primaryColor,
           leading: InkWell(
             onTap: () => Navigator.pop(context),
             child: Icon(
@@ -71,7 +66,7 @@ class WebViewScreenState extends State<WebViewScreen> {
                 }),
             _isLoadingPage
                 ? Container(
-                    color: secondaryColor,
+                    color: primaryColor,
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

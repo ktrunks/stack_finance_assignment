@@ -13,10 +13,10 @@ import 'package:stack_finance_assignment/util/color/colors.dart';
 
 const screenSpacing = EdgeInsets.only(left: 12, right: 12);
 
-const textStyle14SecondaryColor = TextStyle(
+const textStyle14BlackColor = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
-  color: secondaryColor,
+  color: primaryColor,
 );
 
 /// text sized 16 white semi bold
@@ -27,14 +27,14 @@ const buttonTextStyle16WhiteColor = TextStyle(
 );
 
 /// text sized 12 primary  color semi bold
-const textStyle12SecondaryColor = TextStyle(
+const textStyle16PrimaryColor = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w600,
-  color: secondaryColor,
+  color: primaryColor,
 );
 
 /// text sized 14 brownish color
-const textStyle12BrownishGrey = TextStyle(
+const textStyle14BrownishGrey = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w400,
   color: brownishGreyColor,
@@ -42,9 +42,9 @@ const textStyle12BrownishGrey = TextStyle(
 );
 
 /// text sized 12 Primary  semi bold
-const textStyle14SecondarySemiBold = TextStyle(
+const textStyle14PrimarySemiBold = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w600,
-  color: secondaryColor,
+  color: primaryColor,
   height: 1.2,
 );

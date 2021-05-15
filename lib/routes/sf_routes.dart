@@ -17,7 +17,11 @@ class SFRoutes {
   static const String signIn = "/sign";
 
   /// webview screen
-  static const String web_view = "/sign";
+  static const String webView = "/web_view";
+
+  static const String addNote = "/add_note";
+
+  static const String changePassword = "/change_password ";
 
   /// configuring routes
   static void configureRoutes(FluroRouter router) {
@@ -27,7 +31,11 @@ class SFRoutes {
         handler: singInHandler, transitionType: TransitionType.inFromRight);
     router.define(home,
         handler: homeHandler, transitionType: TransitionType.inFromRight);
-    router.define(web_view,
+    router.define(webView,
         handler: webViewHandler, transitionType: TransitionType.inFromRight);
+    router.define(addNote,
+        handler: noteScreenHandler, transitionType: TransitionType.inFromRight);
+    router.define(changePassword,
+        handler: changePasswordScreenHandler, transitionType: TransitionType.inFromRight);
   }
 }

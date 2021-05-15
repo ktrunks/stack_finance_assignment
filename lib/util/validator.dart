@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 /// email validation
 String validateEmail(String value) {

@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:stack_finance_assignment/routes/sf_routes.dart';
 import 'package:stack_finance_assignment/ui/auth/social_login.dart';
 import 'package:stack_finance_assignment/util/enum.dart';
+import 'package:stack_finance_assignment/util/helper.dart';
 import 'package:stack_finance_assignment/util/validator.dart';
 
 import '../base_state.dart';
@@ -25,16 +24,8 @@ class AuthProvider extends BaseState {
   /// login screen password text controller
   TextEditingController passwordTextController = TextEditingController();
 
-  bool isMail = true;
-
   /// used to show and hide password
   bool obscureText = true;
-
-  /// check box status
-  bool agreeCheckBoxStatus = true;
-
-  /// login form key
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   /// email focus Node
   FocusNode emailFocusNode = FocusNode();
@@ -44,9 +35,6 @@ class AuthProvider extends BaseState {
 
   /// login screen email text controller
   TextEditingController emailTextController = TextEditingController();
-
-  StreamController<bool> obscureTextStreamController =
-      StreamController.broadcast();
 
   ///method to show or hide password
   void showHidePass() {
@@ -59,48 +47,14 @@ class AuthProvider extends BaseState {
     }
   }
 
-  /// on click of manual login
-  void onClickOfSign() {
-    if (loginFormKey.currentState.validate()) {
-      registerUser(
-          emailTextController.text.trim(), passwordTextController.text.trim());
-    } else {
-      /*doLogin(emailTextController.text.trim(),
-            passwordTextController.text.trim());*/
-    }
-  }
-
   /// progress update call back
   void progressIndicatorUpdateCallback(bool status) {
     updateProgressIndicatorStatus(status);
   }
 
-  /// email and password login method
-  Future<void> doLogin(String email, String password) async {
-    updateErrorWidget('');
-    await socialLogin.emailAndPasswordLogin(
-      email: email,
-      password: password,
-    );
-  }
-
-  /// email and password login method
-  Future<void> registerUser(String email, String password) async {
-    updateErrorWidget('');
-    await socialLogin.createUserWithEmailAndPassword(
-      email,
-      password,
-    );
-  }
-
   /// google sign in
   void googleSignIn() {
     socialLogin.signInWithGoogle();
-  }
-
-  /// facebook sign in
-  void facebookSignIn() {
-    socialLogin.facebook();
   }
 
   /// on login success
@@ -111,6 +65,7 @@ class AuthProvider extends BaseState {
 
   void onClickOfSignInOrSingUp(AuthType type) {
     dismissErrorWidget();
+    dismissKeyboard(scaffoldKey.currentContext);
     if (emailTextController.text.trim().isNotEmpty) {
       if (passwordTextController.text.trim().isNotEmpty) {
         debugPrint(
@@ -136,6 +91,10 @@ class AuthProvider extends BaseState {
   }
 
   void launchWebView(String title, String url) {
-    Navigator.pushNamed(scaffoldKey.currentContext, SFRoutes.web_view);
+    Map<String, dynamic> data = {};
+    data['title'] = title;
+    data['url'] = url;
+    Navigator.pushNamed(scaffoldKey.currentContext, SFRoutes.webView,
+        arguments: data);
   }
 }
