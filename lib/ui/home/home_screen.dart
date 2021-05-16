@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:stack_finance_assignment/application/sf_application_provider.dart';
 import 'package:stack_finance_assignment/model/notes.dart';
 import 'package:stack_finance_assignment/provider/home_provider.dart';
 import 'package:stack_finance_assignment/routes/sf_routes.dart';
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeProvider homeProvider = Provider.of<HomeProvider>(context);
+    final SFApplicationProvider applicationProvider = Provider.of<SFApplicationProvider>(context);
     return SafeArea(
       child: Scaffold(
         key: homeProvider.scaffoldKey,

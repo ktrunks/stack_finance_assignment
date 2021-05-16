@@ -22,7 +22,7 @@ class _SFAppState extends State<SFApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<SFApplication>(create: (_) => SFApplication()),
+        ChangeNotifierProvider<SFApplicationProvider>(create: (_) => SFApplicationProvider()),
       ],
       child: MaterialApp(
         initialRoute: SFRoutes.root,

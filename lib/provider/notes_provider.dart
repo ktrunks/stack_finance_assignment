@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:stack_finance_assignment/application/sf_application_provider.dart';
 import 'package:stack_finance_assignment/base_state.dart';
 import 'package:stack_finance_assignment/model/notes.dart';
 import 'package:stack_finance_assignment/util/color/colors.dart';
@@ -63,14 +64,7 @@ class NotesProvider extends BaseState {
     }
     docReference.set(data).then((result) {
       updateProgressIndicatorStatus(false);
-      Fluttertoast.showToast(
-          msg: "Note add successfully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.grey,
-          textColor: primaryColor,
-          fontSize: 16.0);
+      displayToast('Note added successfully');
       Navigator.pop(scaffoldKey.currentContext);
     }).catchError((error) {
       updateErrorWidget('error');
@@ -83,14 +77,7 @@ class NotesProvider extends BaseState {
     notes.desc = noteDescriptionController.text;
     docReference.set(notes.toJson()).then((result) {
       updateProgressIndicatorStatus(false);
-      Fluttertoast.showToast(
-          msg: "Note updated successfully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.grey,
-          textColor: primaryColor,
-          fontSize: 16.0);
+      displayToast('Note updated successfully');
       Navigator.pop(scaffoldKey.currentContext);
     }).catchError((error) {
       updateErrorWidget('error');
@@ -98,27 +85,45 @@ class NotesProvider extends BaseState {
     });
   }
 
-  void onClickOfSave() {
+  void displayToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: primaryColor,
+        fontSize: 16.0);
+  }
+
+  void onClickOfSave(SFApplicationProvider sfApplicationProvider) {
     dismissErrorWidget();
     dismissKeyboard(scaffoldKey.currentContext);
     if (formKey.currentState.validate()) {
-      updateProgressIndicatorStatus(true);
-      if (notesType == NotesType.NewNote) {
-        if (imagePath.isNotEmpty) {
-          imageUpload();
+      if (sfApplicationProvider.getNetworkStatus() != null &&
+          sfApplicationProvider.getNetworkStatus()) {
+        updateProgressIndicatorStatus(true);
+        if (notesType == NotesType.NewNote) {
+          if (imagePath.isNotEmpty) {
+            imageUpload();
+          } else {
+            addNewNote(FirebaseFirestore.instance
+                .collection("notes")
+                .doc(FirebaseAuth.instance.currentUser.uid)
+                .collection("notes")
+                .doc());
+          }
         } else {
-          addNewNote(FirebaseFirestore.instance
+          updateNote(FirebaseFirestore.instance
               .collection("notes")
               .doc(FirebaseAuth.instance.currentUser.uid)
               .collection("notes")
-              .doc());
+              .doc(notes.id));
         }
       } else {
-        updateNote(FirebaseFirestore.instance
-            .collection("notes")
-            .doc(FirebaseAuth.instance.currentUser.uid)
-            .collection("notes")
-            .doc(notes.id));
+        displayToast(
+            'No internet connection note will update once internet is available');
+        Navigator.pop(scaffoldKey.currentContext);
       }
     }
   }
@@ -130,7 +135,6 @@ class NotesProvider extends BaseState {
         .putFile(File(imagePath))
         .then((value) {
       value.ref.getDownloadURL().then((value) {
-        ;
         addNewNote(
             FirebaseFirestore.instance
                 .collection("notes")

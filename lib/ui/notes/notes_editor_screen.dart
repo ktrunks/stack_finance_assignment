@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stack_finance_assignment/application/sf_application_provider.dart';
 import 'package:stack_finance_assignment/provider/notes_provider.dart';
 import 'package:stack_finance_assignment/util/color/colors.dart';
 import 'package:stack_finance_assignment/util/enum.dart';
@@ -14,6 +15,8 @@ class NoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotesProvider notesProvider = Provider.of<NotesProvider>(context);
+    final SFApplicationProvider applicationProvider = Provider.of<SFApplicationProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         key: notesProvider.scaffoldKey,
@@ -101,7 +104,7 @@ class NoteScreen extends StatelessWidget {
                                     ? true
                                     : false,
                                 onFieldSubmitted: (terms) {
-                                  notesProvider.onClickOfSave();
+                                  notesProvider.onClickOfSave(applicationProvider);
                                 },
                                 textInputAction: TextInputAction.done,
                                 focusNode: notesProvider.noteDescriptionNode,
@@ -150,7 +153,7 @@ class NoteScreen extends StatelessWidget {
                                           fillColor: primaryColor,
                                           textColor: Colors.white,
                                           callBack: () {
-                                            notesProvider.onClickOfSave();
+                                            notesProvider.onClickOfSave(applicationProvider);
                                           },
                                           textStyle:
                                               buttonTextStyle16WhiteColor,
