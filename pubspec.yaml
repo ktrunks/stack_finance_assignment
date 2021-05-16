@@ -28,30 +28,41 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # firebase sign in and sign up
   firebase_auth: ^1.1.4
 
+  # google sign in and sing up
   google_sign_in: ^5.0.3
 
-  shared_preferences: ^2.0.5
-
+  # state management
   provider: ^5.0.0
 
+  # displaying web page screen
   webview_flutter: ^1.0.7
 
+  # screen navigation
   fluro: ^2.0.3
 
+  # firebase database access
   firebase_core: ^1.1.1
 
+
+  # firebase table
   cloud_firestore: ^2.1.0
 
+  # image picker
   image_picker: ^0.7.5
 
+  # slidable for delete and edit
   flutter_slidable: ^0.6.0
 
+  # displaying toast message
   fluttertoast: ^8.0.6
 
+  # firebase storage for image storage
   firebase_storage: ^8.0.6
 
+  # check internet connection 
   connectivity: ^3.0.3
 
 dev_dependencies:
