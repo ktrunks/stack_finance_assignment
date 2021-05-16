@@ -19,9 +19,13 @@ class HomeProvider extends BaseState {
 
   /// user logout
   void onClickOfSignOut() async {
-    GoogleSignIn().signOut();
-    FirebaseAuth.instance.signOut().then((value) {
+    if (FirebaseAuth.instance.currentUser.providerData
+            .elementAt(0)
+            .providerId ==
+        'google.com') {
       GoogleSignIn().signOut();
+    }
+    FirebaseAuth.instance.signOut().then((value) {
       Navigator.pop(scaffoldKey.currentContext);
       Navigator.popAndPushNamed(scaffoldKey.currentContext, SFRoutes.root);
     });
@@ -41,7 +45,7 @@ class HomeProvider extends BaseState {
         .collection("notes")
         .snapshots()
         .listen((querySnapshot) {
-      debugPrint('snap shot data ---${querySnapshot.size}');
+
       if (notes.length > 0) {
         notes.clear();
       }
@@ -59,7 +63,6 @@ class HomeProvider extends BaseState {
   }
 
   void onClickOfDelete(Object note, Object p2) {
-    // this.notes.remove(notes);
     Notes notes = note;
     FirebaseFirestore.instance
         .collection("notes")

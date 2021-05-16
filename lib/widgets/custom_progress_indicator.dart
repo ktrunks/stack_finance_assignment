@@ -14,7 +14,7 @@ class CustomProgressIndicator extends StatelessWidget {
               height: 40,
               width: 40,
               child: CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
               ),
             ),
             const SizedBox(

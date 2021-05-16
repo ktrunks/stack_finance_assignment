@@ -69,7 +69,7 @@ class ChangePassword extends StatelessWidget {
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: progressColor)),
-                                  hintText: 'title',
+                                  hintText: 'New Password',
                                   contentPadding:
                                       const EdgeInsets.fromLTRB(10, 5, 0, 5),
                                   //border: InputBorder.none,
@@ -79,7 +79,7 @@ class ChangePassword extends StatelessWidget {
                                     return 'New Password is required ';
                                   } else if (data.length < 8) {
                                     return 'New Password should be greater than 8 character';
-                                  } else if (passwordValidation(data)) {
+                                  } else if (!passwordValidation(data)) {
                                     return 'Password Should contain alpha, numeric and special character';
                                   } else
                                     return null;
@@ -89,7 +89,7 @@ class ChangePassword extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                'Description',
+                                'Confirm Password',
                                 style: textStyle16PrimaryColor,
                               ),
                               const SizedBox(
@@ -106,7 +106,6 @@ class ChangePassword extends StatelessWidget {
                                     changePasswordProvider.confirmPasswordNode,
                                 controller: changePasswordProvider
                                     .confirmPasswordController,
-                                maxLines: 8,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderSide:
@@ -120,13 +119,21 @@ class ChangePassword extends StatelessWidget {
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: progressColor)),
-                                  hintText: 'Description',
+                                  hintText: 'Confirm Password',
                                   contentPadding:
                                       const EdgeInsets.fromLTRB(10, 5, 0, 5),
                                   //border: InputBorder.none,
                                 ),
                                 validator: (data) {
-                                  return null;
+                                  if (data.isEmpty) {
+                                    return "Please enter confirm password";
+                                  } else if (data !=
+                                      changePasswordProvider
+                                          .newPasswordController.text
+                                          .trim()) {
+                                    return "password and confirm password dosen't match";
+                                  } else
+                                    return null;
                                 },
                               ),
                               const SizedBox(

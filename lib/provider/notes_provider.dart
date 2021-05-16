@@ -62,7 +62,6 @@ class NotesProvider extends BaseState {
       data['imageUrl'] = imageUrl;
     }
     docReference.set(data).then((result) {
-      debugPrint('result --- ');
       updateProgressIndicatorStatus(false);
       Fluttertoast.showToast(
           msg: "Note add successfully",
@@ -125,7 +124,6 @@ class NotesProvider extends BaseState {
   }
 
   void imageUpload() {
-    debugPrint('image upload');
     FirebaseStorage.instance
         .ref()
         .child('${DateTime.now().millisecondsSinceEpoch}')
@@ -146,7 +144,6 @@ class NotesProvider extends BaseState {
 
   void onClickOfAddImage() {
     _picker.getImage(source: ImageSource.gallery).then((value) {
-      debugPrint('file path ${value.path}');
       imagePath = value.path;
       notifyListeners();
     });

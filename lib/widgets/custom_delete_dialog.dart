@@ -20,9 +20,7 @@ class CustomDeleteDialogBox extends StatefulWidget {
       this.onClickCancel,
       this.onClickOfDelete,
       this.data,
-      this.listData}) {
-    debugPrint('data --- ${data}');
-  }
+      this.listData});
 
   @override
   _CustomDeleteDialogBoxState createState() => _CustomDeleteDialogBoxState();
@@ -60,8 +58,7 @@ class _CustomDeleteDialogBoxState extends State<CustomDeleteDialogBox> {
           const SizedBox(
             height: 10,
           ),
-          Text('Are you sure you want delete',
-              style: textStyle14BlackColor),
+          Text('Are you sure you want delete', style: textStyle14BlackColor),
           const SizedBox(
             height: 10,
           ),

@@ -68,8 +68,6 @@ class AuthProvider extends BaseState {
     dismissKeyboard(scaffoldKey.currentContext);
     if (emailTextController.text.trim().isNotEmpty) {
       if (passwordTextController.text.trim().isNotEmpty) {
-        debugPrint(
-            'password validation  -- ${passwordValidation(passwordTextController.text.trim())}');
         if (passwordValidation(passwordTextController.text.trim())) {
           type == AuthType.SignUp
               ? socialLogin.createUserWithEmailAndPassword(

@@ -224,7 +224,6 @@ class NoteScreen extends StatelessWidget {
   }
 
   Widget getNoteViewImageWidget(NotesProvider notesProvider) {
-    debugPrint('image path ${notesProvider.notes.imageUrl}');
     return notesProvider.notes.imageUrl != null
         ? Container(
             height: 60.0,
